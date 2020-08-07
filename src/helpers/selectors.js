@@ -1,4 +1,4 @@
-export function getAppointmentsForDay(state, day) {
+const getAppointmentsForDay = function(state, day) {
   let result = [];
   for(let d of state.days){
     if(d.name === day){
@@ -10,3 +10,20 @@ export function getAppointmentsForDay(state, day) {
   }
   return result;
 }
+
+const getInterview = function(state, interview){
+  if(!interview){
+    return null;
+  } else{
+    let interviewer = interview.interviewer;
+    let student = interview.student;
+    for(let inter in state.interviewers){
+      if(interviewer === Number(inter)){
+        return {student:student, interviewer:state.interviewers[inter]};
+      }
+    }
+  }
+  
+}
+
+export {getAppointmentsForDay, getInterview}
