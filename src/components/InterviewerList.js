@@ -15,11 +15,10 @@ export default function InterviewerList(props) {
         name={interview.name}
         avatar={interview.avatar}
         selected={interview.id === props.value}
-        setInterviewer={event => props.onChange(interview.id)}
+        setInterviewer={props.onChange}
         />
     })
 
- 
    return (
     <section className="interviewers">
     <h4 className="interviewers__header text--light">Interviewer</h4>

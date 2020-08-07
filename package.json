@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
@@ -30,6 +31,7 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://localhost:8001",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@storybook/addon-actions": "^5.0.10",
@@ -47,4 +49,5 @@
       "<rootDir>/.git/"
     ]
   }
+  
 }
