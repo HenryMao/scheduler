@@ -5,11 +5,18 @@ const useVisualMode = (initial)=>{
   
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
-  function transition(newMode) {
-    console.log(history);
-    setHistory((cs)=>{
-      return cs.concat(newMode);
-    });
+  function transition(newMode, replace = false) {
+
+    if(replace){
+      setHistory((cs)=>{
+        return cs.slice(0, cs.length-1).concat(newMode);
+      });
+    } else {
+      setHistory((cs)=>{
+        return cs.concat(newMode);
+      });
+    }
+    
     setMode(newMode);
   } 
   function back(){
