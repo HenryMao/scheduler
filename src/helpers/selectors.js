@@ -33,7 +33,6 @@ const getInterviewersForDay = function(state, day){
       d.interviewers.forEach(element => {
         result.push(state.interviewers[element]);
       });
-      //result.push(state.appointments[d.id]);
     }
   }
   return result;
