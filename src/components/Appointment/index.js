@@ -8,6 +8,7 @@ import useVisualMode from "hooks/useVisualMode"
 import Form from "components/Appointment/Form"
 import Status from "components/Appointment/Status"
 import Confirm from "components/Appointment/Confirm"
+import Error from "components/Appointment/Error"
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -15,6 +16,9 @@ const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "ARE YOU SURE YOU WANT TO DELETE?";
 const EDIT = "EDIT";
+const ERROR_d = "ERROR DELETING";
+const ERROR_s = "ERROR SAVING";
+
 export default function Appointment(props) {
 
   const { mode, transition, back } = useVisualMode(
@@ -25,12 +29,13 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING, true);
+    transition(SAVING);
     props.bookInterview(props.id, interview)
     .then(response =>{
       transition(SHOW);
     })
     .catch(error=>{
+      transition(ERROR_d, true);
       console.log(error);
     })
   }
@@ -38,9 +43,11 @@ export default function Appointment(props) {
     transition(DELETING, true);
     props.cancelInterview(props.id)
     .then(()=>{
+      props.updateLocalInterview(props.id);
       transition(EMPTY);
     })
     .catch((error)=>{
+      transition(ERROR_d, true);
       console.log(error);
     })
   }
@@ -67,7 +74,19 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty onAdd={()=>{
         transition(CREATE);
       }} />}
-      {mode === SHOW && (<Show
+      {mode === ERROR_d && <Error
+        message={ERROR_d}
+        onClose={()=>{
+          back();
+        }}
+      />}
+      {mode === ERROR_s && <Error
+        message={ERROR_s}
+        onClose={()=>{
+          back();
+        }}
+      />}
+      {mode === SHOW && <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
         onDelete={()=>{
@@ -77,7 +96,7 @@ export default function Appointment(props) {
           transition(EDIT);
         }}
       />
-      )}
+      }
       {mode === EDIT && <Form
         onSave={save}
         onCancel={()=>{

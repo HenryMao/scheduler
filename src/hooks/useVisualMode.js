@@ -9,7 +9,7 @@ const useVisualMode = (initial)=>{
 
     if(replace){
       setHistory((cs)=>{
-        return cs.slice(0, cs.length-1).concat(newMode);
+        return cs.slice(0,cs.length-1).concat(newMode);
       });
     } else {
       setHistory((cs)=>{
@@ -20,9 +20,9 @@ const useVisualMode = (initial)=>{
   } 
   function back(){
     setHistory((cs) =>{
-      return cs.slice(0,cs.length-1);
+      return cs.slice(0, cs.length-1);
     });
-
+    console.log(history);
     if(history.length>1){
       setMode(history[history.length-2]);
     }
