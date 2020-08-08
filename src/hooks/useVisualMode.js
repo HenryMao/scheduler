@@ -16,15 +16,13 @@ const useVisualMode = (initial)=>{
         return cs.concat(newMode);
       });
     }
-    console.log(history);
     setMode(newMode);
   } 
   function back(){
-    console.log("before",history);
     setHistory((cs) =>{
       return cs.slice(0,cs.length-1);
     });
-    console.log("after", history);
+
     if(history.length>1){
       setMode(history[history.length-2]);
     }

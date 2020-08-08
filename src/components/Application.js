@@ -104,7 +104,6 @@ export default function Application(props) {
 
     return axios.delete(`/api/appointments/${id}`);
   }
-
   useEffect(()=>{
     Promise.all([
       Promise.resolve(axios.get("/api/days")), 
