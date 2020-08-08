@@ -7,8 +7,15 @@ import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "../hel
 import useApplicationData from "hooks/useApplicationData";
 export default function Application(props) {
 
-  const {setDay, state, updateLocalInterview, bookInterview} = useApplicationData(); 
+  const {setDay, state, updateLocalInterview, saveSuccess, editSuccess} = useApplicationData(); 
   
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    return axios.put(`/api/appointments/${id}`, appointment);
+  }
   
   function cancelInterview(id){
     return axios.delete(`/api/appointments/${id}`);
@@ -28,6 +35,8 @@ export default function Application(props) {
     bookInterview={bookInterview}
     cancelInterview={cancelInterview}
     updateLocalInterview={updateLocalInterview}
+    saveSuccess={saveSuccess}
+    editSuccess={editSuccess}
   />)
   });
 

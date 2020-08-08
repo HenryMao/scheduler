@@ -10,7 +10,8 @@ const useApplicationData = function(){
   });
 
 
-  function bookInterview(id, interview) {
+ 
+  function saveSuccess(id, interview){
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -19,13 +20,56 @@ const useApplicationData = function(){
       ...state.appointments,
       [id]: appointment
     };
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
+
+    let spots;
+    let newDays = [...state.days];
+    let index;
+
+      for(let i = 0; i<state.days.length; i++){
+        if(state.days[i].name === state.day){
+        spots = state.days[i].spots - 1;
+        newDays[i] = {...state.days[i], spots}
+        }
+      }
+    console.log(state.days);
+    console.log(newDays);
     setState({
-      ...state,
-      appointments
-    });
-    return axios.put(`/api/appointments/${id}`, appointment);
+      ...state, appointments: appointments, days: newDays
+    })
   }
-  
+  function editSuccess(id, interview){
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
+
+    let spots;
+    let newDays = [...state.days];
+    let index;
+
+      for(let i = 0; i<state.days.length; i++){
+        if(state.days[i].name === state.day){
+        spots = state.days[i].spots;
+        newDays[i] = {...state.days[i], spots}
+        }
+      }
+
+    setState({
+      ...state, appointments: appointments, days: newDays
+    })
+  }
   function updateLocalInterview(id){
     const appointment = {
       ...state.appointments[id],
@@ -35,10 +79,20 @@ const useApplicationData = function(){
       ...state.appointments,
       [id]: appointment
     };
+    let spots;
+    let newDays = [...state.days];
+    let index;
+
+      for(let i = 0; i<state.days.length; i++){
+        if(state.days[i].name === state.day){
+        spots = state.days[i].spots + 1;
+        newDays[i] = {...state.days[i], spots}
+        }
+      }
+    console.log(state.days);
     setState({
-      ...state,
-      appointments
-    });
+      ...state, appointments: appointments, days: newDays
+    })
   }
 
 
@@ -59,7 +113,7 @@ const useApplicationData = function(){
 
   },[]);
 
-  return {setDay, state, updateLocalInterview, bookInterview};
+  return {setDay, state, updateLocalInterview, editSuccess, saveSuccess};
 
 }
 
