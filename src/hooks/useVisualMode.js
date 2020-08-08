@@ -16,6 +16,7 @@ const useVisualMode = (initial)=>{
         return cs.concat(newMode);
       });
     }
+    console.log(history);
     setMode(newMode);
   } 
   function back(){
