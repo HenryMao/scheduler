@@ -113,7 +113,7 @@ const useApplicationData = function(){
 
   },[]);
 
-  return {setDay, state, updateLocalInterview, editSuccess, saveSuccess};
+  return { state, updateLocalInterview, editSuccess, saveSuccess};
 
 }
 
