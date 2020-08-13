@@ -21,3 +21,10 @@ npm test
 ```sh
 npm run storybook
 ```
+## Description
+```
+An react project that schedules intervews with fake interviewers on weekdays.
+The server is deployed on an heroku server and the project is deployed on netlify with a custom domain
+```
+Click to view the project online 
+henrymao.ca
