@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import DayList from "components/DayList.js";
 import "components/Application.scss";
@@ -6,9 +6,9 @@ import Appointment from "components/Appointment";
 import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "../helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 export default function Application(props) {
-
-  const {setDay, state, updateLocalInterview, saveSuccess, editSuccess} = useApplicationData(); 
-  
+  //import all the states managed by useApplicationData
+  const {setDay, state, updateLocalInterview, saveSuccess, editSuccess} = useApplicationData();
+  //bookinterview is only responsible for making axios put request to the server
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -17,33 +17,33 @@ export default function Application(props) {
     return axios.put(`/api/appointments/${id}`, appointment);
   }
   
-  function cancelInterview(id){
+  function cancelInterview(id) {
     return axios.delete(`/api/appointments/${id}`);
   }
 
   const appointments = getAppointmentsForDay(state, state.day);
   const schedule = appointments.map((appointment) => {
-  const interview = getInterview(state, appointment.interview);
+    const interview = getInterview(state, appointment.interview);
 
-  const interviewers = getInterviewersForDay(state, state.day);
-  return (<Appointment
-    key={appointment.id}
-    id={appointment.id}
-    time={appointment.time}
-    interview={interview}
-    interviewers={interviewers}
-    bookInterview={bookInterview}
-    cancelInterview={cancelInterview}
-    updateLocalInterview={updateLocalInterview}
-    saveSuccess={saveSuccess}
-    editSuccess={editSuccess}
-  />)
+    const interviewers = getInterviewersForDay(state, state.day);
+    return (<Appointment
+      key={appointment.id}
+      id={appointment.id}
+      time={appointment.time}
+      interview={interview}
+      interviewers={interviewers}
+      bookInterview={bookInterview}
+      cancelInterview={cancelInterview}
+      updateLocalInterview={updateLocalInterview}
+      saveSuccess={saveSuccess}
+      editSuccess={editSuccess}
+    />);
   });
 
   return (
     <main className="layout">
       <section className="sidebar">
-          <img
+        <img
           className="sidebar--centered"
           src="images/logo.png"
           alt="Interview Scheduler"
@@ -63,9 +63,9 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {schedule} 
-        <Appointment key="last" time="5pm" 
-        bookInterview={bookInterview}
+        {schedule}
+        <Appointment key="last" time="5pm"
+          bookInterview={bookInterview}
         />
       </section>
     </main>

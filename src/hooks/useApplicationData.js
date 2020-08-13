@@ -1,5 +1,7 @@
 import React,{useState, useEffect} from "react";
 import axios from "axios";
+
+//manages local states
 const useApplicationData = function(){
   const setDay = day => setState({ ...state, day });
   const [state, setState] = useState({
@@ -10,7 +12,7 @@ const useApplicationData = function(){
   });
 
 
- 
+ //function to save info to the state when adding appointments
   function saveSuccess(id, interview){
     const appointment = {
       ...state.appointments[id],
@@ -20,14 +22,9 @@ const useApplicationData = function(){
       ...state.appointments,
       [id]: appointment
     };
-    // setState({
-    //   ...state,
-    //   appointments
-    // });
-
+  
     let spots;
     let newDays = [...state.days];
-    let index;
 
       for(let i = 0; i<state.days.length; i++){
         if(state.days[i].name === state.day){
@@ -41,6 +38,7 @@ const useApplicationData = function(){
       ...state, appointments: appointments, days: newDays
     })
   }
+  //updates information to the state when editing appointments
   function editSuccess(id, interview){
     const appointment = {
       ...state.appointments[id],
@@ -50,10 +48,7 @@ const useApplicationData = function(){
       ...state.appointments,
       [id]: appointment
     };
-    // setState({
-    //   ...state,
-    //   appointments
-    // });
+
 
     let spots;
     let newDays = [...state.days];
@@ -70,6 +65,7 @@ const useApplicationData = function(){
       ...state, appointments: appointments, days: newDays
     })
   }
+  //delete
   function updateLocalInterview(id){
     const appointment = {
       ...state.appointments[id],
@@ -89,13 +85,12 @@ const useApplicationData = function(){
         newDays[i] = {...state.days[i], spots}
         }
       }
-    console.log(state.days);
-    setState({
+    setState({//updates spots remaining and information about the appointment
       ...state, appointments: appointments, days: newDays
     })
   }
 
-
+  //initial rendering of what is already on the server
   useEffect(()=>{
     Promise.all([
       Promise.resolve(axios.get("/api/days")), 

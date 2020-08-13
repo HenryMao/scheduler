@@ -5,13 +5,13 @@ import axios from "axios";
 
 afterEach(cleanup);
 describe("Application", () => {
-  it("defaults to Monday and changes the schedule when a new day is selected", async () => {
+  it("defaults to Monday and changes the schedule when a new day is selected", async() => {
     const { getByText } = render(<Application />);
-    await waitForElement(() => getByText("Monday"))
-      fireEvent.click(getByText("Tuesday"));
-      expect(getByText("Leopold Silvers")).toBeInTheDocument();
+    await waitForElement(() => getByText("Monday"));
+    fireEvent.click(getByText("Tuesday"));
+    expect(getByText("Leopold Silvers")).toBeInTheDocument();
   });
-  it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
+  it("loads data, books an interview and reduces the spots remaining for Monday by 1", async() => {
     const { container, debug } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
     const appointments = getAllByTestId(container, "appointment");
@@ -29,7 +29,7 @@ describe("Application", () => {
     );
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
-  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async() => {
     // 1. Render the Application.
     const { container, debug } = render(<Application />);
     // 2. Wait until the text "Archie Cohen" is displayed.
@@ -44,11 +44,11 @@ describe("Application", () => {
     expect(getByText(appointment, "DELETING")).toBeInTheDocument();
     await waitForElement(() => getByAltText(appointment, "Add"));
     const day = getAllByTestId(container, "day").find(day =>
-    queryByText(day, "Monday")
-  );
+      queryByText(day, "Monday")
+    );
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
   });
-  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async() => {
     // 1. Render the Application.
     const { container, debug } = render(<Application />);
     // 2. Wait until the text "Archie Cohen" is displayed.
@@ -78,4 +78,4 @@ describe("Application", () => {
   it("shows the delete error when failing to delete an existing appointment", () => {
     axios.delete.mockRejectedValueOnce();
   });
-})
+});
