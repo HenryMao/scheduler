@@ -28,3 +28,4 @@ The server is deployed on an heroku server and the project is deployed on netlif
 ```
 Upon your first visit, allow a few seconds before refreshing the page to allow the server to restart if inactive. Click here to view
 henrymao.ca.
+!["HERE"](interview-scheduler-lh.netlify.app)

@@ -4,6 +4,7 @@ import { render, cleanup, getAllByTestId } from "@testing-library/react";
 
 import Form from "components/Appointment/Form";
 import { fireEvent } from "@testing-library/react";
+import InterviewerListItem from "components/InterviewerListItem";
 /*
   We are rendering `<Application />` down below, so we need React.createElement
 */
@@ -70,6 +71,12 @@ describe("Form", () => {
     const { getByText, getByPlaceholderText, queryByText } = render(
       <Form interviewers={interviewers} onSave={onSave} />
     );
+    const {li, img} = render(<InterviewerListItem
+    id = {interviewers[0].id}
+    name = {interviewers[0].name}
+    avatar = {interviewers[0].avatar}
+    selected = {true}
+    />);
     
     fireEvent.click(getByText("Save"));
     
